@@ -1,0 +1,9 @@
+fastapi-limiter
+fastapi-versioning
+fastapi
+loguru
+pydantic
+uvicorn
+requests
+httpx
+omegaconf
