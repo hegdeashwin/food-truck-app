@@ -76,19 +76,19 @@ app/
 export <Name>=<Value>
 
 For example:
-export BEAVER_API_SYS_INS_TYPE="DEVELOPMENT"
+export API_SYS_INS_TYPE="DEVELOPMENT"
 ```
 
 :warning: No space before and after `=` sign.
 
 | Name | Purpose | Possible Values |
 |:---|:---|:---|
-| BEAVER_API_SYS_INS_TYPE | Help to identify system instance type on which the app service is running | `DEVELOPMENT`, `STAGE` and `PRODUCTION` |
+| API_SYS_INS_TYPE | Help to identify system instance type on which the app service is running | `DEVELOPMENT`, `STAGE` and `PRODUCTION` |
 
 ### Development
 
 ```console
-export BEAVER_API_SYS_INS_TYPE="DEVELOPMENT"
+export API_SYS_INS_TYPE="DEVELOPMENT"
 ```
 
 **Install all dependencies using Pip**
@@ -143,7 +143,7 @@ isort **/*.py
 ### Stage
 
 ```console
-export BEAVER_API_SYS_INS_TYPE="STAGE"
+export API_SYS_INS_TYPE="STAGE"
 ```
 
 **Install only dependencies (exclude dev-dependencies) using Poetry**
@@ -166,7 +166,7 @@ http://<STAGE_BASE_URL>:<STAGE_PORT>/api/v1/docss
 ### Production
 
 ```console
-export BEAVER_API_SYS_INS_TYPE="PRODUCTION"
+export API_SYS_INS_TYPE="PRODUCTION"
 ```
 
 **Install only dependencies (exclude dev-dependencies) using Poetry**
