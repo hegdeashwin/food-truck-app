@@ -25,4 +25,4 @@ def test_info_api():
     response = client.get("/api/v1/info")
     assert response.status_code == 200
     response_json = response.json()
-    assert response_json["title"] == "dummy_food"
+    assert response_json["title"] == "Food Truck API"

@@ -9,10 +9,8 @@ class Metadata(BaseSettings):
     Return the application's metadata info
     """
 
-    title = ""
-    description = (
-        ""
-    )
+    title = "Food Truck API"
+    description = "List of APIs for Food Truck functionalities."
     version = "0.0.1"
     contact = {
         "name": "Ashwin Hegde",

@@ -25,15 +25,13 @@ def load_config():
     Return system instance type where the service is running, either dev/stage/production env,
     depends on system variable BEAVER_API_SYS_INS_TYPE configured
     """
-    sys_ins_type = os.getenv("BEAVER_API_SYS_INS_TYPE")
+    sys_ins_type = str(os.getenv("BEAVER_API_SYS_INS_TYPE"))
+    file = OmegaConf.load("app/configs/development.yml")
 
     if sys_ins_type in "PRODUCTION":
         file = OmegaConf.load("app/configs/production.yml")
 
     if sys_ins_type in "STAGE":
         file = OmegaConf.load("app/configs/stage.yml")
-
-    if sys_ins_type in "DEVELOPMENT":
-        file = OmegaConf.load("app/configs/development.yml")
 
     return file

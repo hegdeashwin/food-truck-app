@@ -8,7 +8,8 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi_versioning import VersionedFastAPI
 
 from app.api import api_router
-from app.core.special_handlers import shutdown_event_handler, startup_event_handler
+from app.core.special_handlers import (shutdown_event_handler,
+                                       startup_event_handler)
 from app.metadata import Metadata
 
 metadata = Metadata()
