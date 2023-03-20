@@ -2,12 +2,16 @@
 Holds all common handler functions used within services
 """
 import os
+import logging
 from functools import lru_cache
 
 from omegaconf import OmegaConf
-
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 from app.metadata import Metadata
 
+logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 
 @lru_cache()
 def get_service_metadata():
@@ -35,3 +39,15 @@ def load_config():
         file = OmegaConf.load("app/configs/stage.yml")
 
     return file
+
+@lru_cache()
+def connect_mongodb():
+    CONFIG = load_config()
+    MONGO_ENDPOINT = CONFIG.DOWNSTREAMS.DB.MONGO
+    
+    try:
+        client = MongoClient(f"{MONGO_ENDPOINT}", server_api=ServerApi("1"), serverSelectionTimeoutMS=5000)
+        logger.info(client.server_info())
+        return client
+    except Exception:
+        logger.error("Unable to connect to the server.")

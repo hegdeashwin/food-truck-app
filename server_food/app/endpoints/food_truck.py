@@ -1,127 +1,72 @@
 """
 Holds functions used by food Sample API
 """
-
-import requests
+from bson import ObjectId
 from fastapi import APIRouter, status
 from fastapi_versioning import version
 
 from app.core import common_handlers
-from app.models.food import FoodModel
+from app.models.food_truck import FoodTruckModel
+from app.schema.food_truck_entity import foodTrucksEntity, foodTruckEntity
+
 
 router = APIRouter(
-    prefix="/food_truck",
-    tags=["Food Truck"],
+    prefix="/food_trucks",
+    tags=["food trucks"],
     responses={404: {"description": "Not found"}},
 )
 
 CONFIG = common_handlers.load_config()
 BASE_URL = CONFIG.DOWNSTREAMS.JSON_PLACE_HOLDER
 
+client = common_handlers.connect_mongodb()
 
 @router.get("/", status_code=status.HTTP_200_OK)
 @version(1)
 async def get_food_trucks():
     """
-    Return sample response
+    Return list of available food trucks on given date.
+    Defaults to current date.
     """
-    response = requests.get(f"{BASE_URL}/users", timeout=10)
-    if response.status_code == status.HTTP_200_OK:
-        return response.json()
-    return None
+    return foodTrucksEntity(client.ftaas_db.food_trucks.find())
 
 
 @router.get("/{food_truck_id}", status_code=status.HTTP_200_OK)
 @version(1)
-async def get_food_truck_by_id(food_truck_id: int):
+async def get_food_truck_by_id(food_truck_id: str):
     """
-    Return sample response
+    Return single food truck by food_truck_id
     """
-    response = requests.get(f"{BASE_URL}/user/{food_truck_id}", timeout=10)
-    if response.status_code == status.HTTP_200_OK:
-        return response.json()
-    return None
+    return foodTruckEntity(client.ftaas_db.food_trucks.find_one({"_id": ObjectId(food_truck_id)}))
 
 
 @router.post("/", status_code=status.HTTP_200_OK)
 @version(1)
-async def onboard_food_truck(food: FoodModel):
+async def onboard_food_truck(foodTruck: FoodTruckModel):
     """
     Return food response
     """
-    return {
-        "food_id": food.food_id,
-        "food_name": food.first_name,
-    }
+    client.ftaas_db.food_trucks.insert_one(dict(foodTruck))
+    return foodTruck
 
 
 @router.put("/", status_code=status.HTTP_200_OK)
 @version(1)
-async def onboard_food_truck(food: FoodModel):
+async def onboard_food_truck(food_truck_id, food_truck_name: FoodTruckModel):
     """
     Return food response
     """
-    return {
-        "food_id": food.food_id,
-        "food_name": food.first_name,
-    }
+    client.ftaas_db.food_trucks.find_one_and_update(
+        {"_id": ObjectId(food_truck_id)},
+        {"$set": dict(food_truck_name)}
+    )
+    return foodTruckEntity(client.ftaas_db.food_trucks.find_one({"_id": ObjectId(food_truck_id)}))
 
 
-@router.delete("/", status_code=status.HTTP_200_OK)
+@router.delete("/{food_truck_id}", status_code=status.HTTP_200_OK)
 @version(1)
-async def onboard_food_truck(food: FoodModel):
+async def remove_food_truck_by_id(food_truck_id: str):
     """
     Return food response
     """
-    return {
-        "food_id": food.food_id,
-        "food_name": food.first_name,
-    }
-
-
-@router.get("/{food_truck_id}/menu", status_code=status.HTTP_200_OK)
-@version(1)
-async def get_food_truck_menu(food_truck_id: int):
-    """
-    Return list of all food items available in menu by food truck
-    """
-    response = requests.get(f"{BASE_URL}/user/{food_truck_id}", timeout=10)
-    if response.status_code == status.HTTP_200_OK:
-        return response.json()
-    return None
-
-
-@router.post("/{food_truck_id}/item", status_code=status.HTTP_200_OK)
-@version(1)
-async def onboard_food_truck(food: FoodModel):
-    """
-    Return food response
-    """
-    return {
-        "food_id": food.food_id,
-        "food_name": food.first_name,
-    }
-
-
-@router.put("/{food_truck_id}/item", status_code=status.HTTP_200_OK)
-@version(1)
-async def onboard_food_truck(food: FoodModel):
-    """
-    Return food response
-    """
-    return {
-        "food_id": food.food_id,
-        "food_name": food.first_name,
-    }
-
-
-@router.delete("/{food_truck_id}/item", status_code=status.HTTP_200_OK)
-@version(1)
-async def onboard_food_truck(food: FoodModel):
-    """
-    Return food response
-    """
-    return {
-        "food_id": food.food_id,
-        "food_name": food.first_name,
-    }
+    return foodTruckEntity(client.ftaas_db.food_trucks.find_one_and_delete({"_id": ObjectId(food_truck_id)}))

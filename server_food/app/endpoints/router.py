@@ -14,4 +14,4 @@ api_router.include_router(health.router, tags=["health"])
 
 # Microservice routes specific to handler the use case.
 # For example, here its food_truck similar it could be payments, profile, publish, cart etc.
-api_router.include_router(food_truck.router, tags=["food_truck"], prefix="/food_truck")
+api_router.include_router(food_truck.router, tags=["food_trucks"], prefix="/food_trucks")
