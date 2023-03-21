@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi_versioning import VersionedFastAPI
+from supertokens_fastapi import get_cors_allowed_headers
 
 from app.api import api_router
 from app.core.special_handlers import (shutdown_event_handler,
@@ -24,22 +25,28 @@ def get_app() -> FastAPI:
         description=metadata.get_service_description(),
         version=metadata.get_service_release_version(),
         contact=metadata.get_service_contact(),
-        # debug=metadata.is_debug_mode()
+        debug=metadata.is_debug_mode()
     )
 
+    
     # Allow cross origin resource sharing with default configurations
     # Refer https://fastapi.tiangolo.com/tutorial/cors/
+    origins = [
+        "http://localhost",
+        "http://localhost:3000/"
+    ]
     fast_app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=origins,
         allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
+        allow_methods=["POST", "GET", "PUT", "DELETE"],
+        allow_headers=["Content-Type"] + get_cors_allowed_headers()
     )
 
     # Compress response for any request that includes gzip in the accept-encoding header
     # Refer https://fastapi.tiangolo.com/advanced/middleware/#gzipmiddleware
     fast_app.add_middleware(GZipMiddleware)
+
 
     # Reference to all the microservice routes including special routes like info and health
     fast_app.include_router(api_router)
