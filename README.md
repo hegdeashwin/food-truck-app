@@ -12,6 +12,7 @@ Sets of packages/tools require to run the service
 | [Python 3.8](https://www.python.org/downloads/) | Used for `./server_py`. Executed and tested on Python 3.8.10. Visit [Readme.md](./server_py/READ.md) for more details  |
 | [Docker](https://www.docker.com/) | Used to run `MongoDB` and `MongoDB-Express` on `Docker` using `Docker Compose`. |
 
+> :warning: Tested on MacBook Pro M1 + Google Chrome
 ## Setup
 
 ### Run the service
@@ -53,3 +54,21 @@ pip install -r requirements-dev.txt
 export API_SYS_INS_TYPE="DEVELOPMENT"
 uvicorn "app.main:app" --host="0.0.0.0" --port=8000 --reload
 ```
+
+## Future/Pending items
+
+### Client
+
+- [x] (Bug) - In edit option, close Modal once we receive ack from PATCH api response.
+- [x] (Enhancement) - Improve validation, use schema based validation `Yup` along with `Formik` to validate form fields.
+- [x] (Enhancement) - Use more TypeScript features for type check.
+- [x] (Enhancement) - Run client via Docker Compose.
+
+### Server (Node.js/Express)
+
+- [x] (Enhancement) - Improve validation, use schema based validation `Yup` to validate request body & queries.
+- [x] (Enhancement) - Run server_node via Docker Compose.
+
+### Server (Python/FastAPI)
+
+- [x] (Bug) - Open issue with CORS middlware on FastAPI (https://github.com/tiangolo/fastapi/discussions/6278)
