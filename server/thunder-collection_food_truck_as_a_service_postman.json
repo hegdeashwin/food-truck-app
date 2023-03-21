@@ -1,0 +1,145 @@
+{
+    "info": {
+        "name": "food_truck_as_a_service",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Add Food Truck",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:8005/api/v1/foodtrucks",
+                    "path": [
+                        "api",
+                        "v1",
+                        "foodtrucks"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8005"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n    \"foodTruckName\": \"Truck 1\",\n    \"foodTruckAvailableDate\": \"2023-03-21\"\n}"
+                }
+            }
+        },
+        {
+            "name": "All Food Trucks",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8005/api/v1/foodtrucks?filterByCurrentDate=true",
+                    "query": [
+                        {
+                            "key": "filterByCurrentDate",
+                            "value": "true"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "api",
+                        "v1",
+                        "foodtrucks"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8005"
+                }
+            }
+        },
+        {
+            "name": "Food Trucks By Current Date",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8005/api/v1/foodtrucks?filterByCurrentDate=all",
+                    "query": [
+                        {
+                            "key": "filterByCurrentDate",
+                            "value": "all"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "api",
+                        "v1",
+                        "foodtrucks"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8005"
+                }
+            }
+        },
+        {
+            "name": "Update Food Truck",
+            "request": {
+                "method": "PATCH",
+                "url": {
+                    "raw": "http://localhost:8005/api/v1/foodtrucks",
+                    "path": [
+                        "api",
+                        "v1",
+                        "foodtrucks"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8005"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n    \"foodTruckId\": \"64199ef63217d4d52d896220\",\n    \"foodTruckName\": \"Truck 2\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Delete Food Truck",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://localhost:8005/api/v1/foodtrucks",
+                    "path": [
+                        "api",
+                        "v1",
+                        "foodtrucks"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8005"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n    \"foodTruckId\": \"64199838fa343bed995e743a\"\n}"
+                }
+            }
+        }
+    ]
+}
