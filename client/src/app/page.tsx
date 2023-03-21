@@ -1,38 +1,47 @@
+'use client';
+
+import { useEffect, useState } from 'react'
 import Header from './common/header'
 import Footer from './common/footer'
+import AddFoodTruck from './merchant/addFoodTruck'
+import ListFoodTruck from './merchant/listFoodTruck';
 
 export default function Home() {
+  const [refresh, setRefresh] = useState(false)
+
+  useEffect(() => {
+    typeof document !== undefined
+      ? require("bootstrap/dist/js/bootstrap")
+      : null;
+  }, []);
+
+  const [filterByCurrentDate, setFilterByCurrentDate] = useState('all')
+
+  const onRefreshStart = () => {
+    setRefresh(true)
+  }
+
+  const onRefreshComplete = () => {
+    setRefresh(false)
+  }
+
   return (
     <main className='container py-4'>
       <Header />
 
       <div className='content'>
-        <div className="p-5 mb-4 bg-light rounded-3">
-          <div className="container-fluid py-5">
-            <h1 className="display-5 fw-bold">Custom jumbotron</h1>
-            <p className="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-            <button className="btn btn-primary btn-lg" type="button">Example button</button>
+        <AddFoodTruck onRefresh={onRefreshStart} />
+        
+        <div className="alert alert-warning mt-4 py-2">
+          <div className="form-check form-switch">
+            <input className="form-check-input" type="checkbox" role="switch" id="availableDate" />
+            <label className="form-check-label" htmlFor="availableDate">By default, show all food truck available today. Click to turn off default and show all food truck.</label>
           </div>
         </div>
 
-        <div className="row align-items-md-stretch">
-          <div className="col-md-6">
-            <div className="h-100 p-5 text-bg-dark rounded-3">
-              <h2>Change the background</h2>
-              <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
-              <button className="btn btn-outline-light" type="button">Example button</button>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="h-100 p-5 bg-light border rounded-3">
-              <h2>Add borders</h2>
-              <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as weve adjusted the alignment and sizing of both column content for equal-height.</p>
-              <button className="btn btn-outline-secondary" type="button">Example button</button>
-            </div>
-          </div>
-        </div>
+        <ListFoodTruck filterByCurrentDate={filterByCurrentDate} onRefreshComplete={onRefreshComplete} refresh={refresh} />
       </div>
-      
+
       <Footer />
     </main>
   )
