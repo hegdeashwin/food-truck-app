@@ -8,8 +8,8 @@ Sets of packages/tools require to run the service
 
 | Tools | Purpose |
 |:---|:---|
-| [Node.js 18.x](https://www.nodejs.org) | Used for `./server_node`. Executed and tested on Node.js v v16.17.0 or above. Visit [Readme.md](./server_node/READ.md) for more details |
-| [Python 3.8](https://www.python.org/downloads/) | Used for `./server_py`. Executed and tested on Python 3.8.10. Visit [Readme.md](./server_py/READ.md) for more details  |
+| [Node.js 18.x](https://www.nodejs.org) | Used for `./server_node`. Executed and tested on Node.js v v16.17.0 or above. |
+| [Python 3.8](https://www.python.org/downloads/) | Used for `./server_py`. Executed and tested on Python 3.8.10. |
 | [Docker](https://www.docker.com/) | Used to run `MongoDB` and `MongoDB-Express` on `Docker` using `Docker Compose`. |
 
 > :warning: Tested on MacBook Pro M1 + Google Chrome
