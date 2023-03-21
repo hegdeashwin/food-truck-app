@@ -15,9 +15,20 @@
 
 ## Changes
 
-**Draft 18th March 2023 - v0.0.1**
+**Release 21st March 2023 - v0.0.1**
 
-### General Infra
+### General Infra (Node)
+
+- [x] Use [Express](https://expressjs.com/) as base framework to build the `REST` microservice in JavaScript/Node.
+- [x] Setup `project scaffolding` like files and directories, event handlings, routers, middlewares etc as per Express guidelines.
+- [x] Add `configurations` for hostname, port, env etc. for development, stage and production env.
+- [x] Add special routes `/info` and `/health`.
+- [x] Define common `logger` for application logging.
+- [x] Fix EsLint errors and warnings.
+- [x] Add `Docker` support and document the commands to build the Docker image and run the service.
+- [x] Add `Health Check API` interval on Dockerfile config.
+
+### General Infra (Python)
 
 - [x] Use [FastAPI](https://fastapi.tiangolo.com/) as base framework to build the `REST` microservice in Python.
 - [x] Setup `project scaffolding` like files and directories, event handlings, routers, middlewares etc as per FastAPI guidelines.
@@ -32,10 +43,12 @@
 
 ### Server Food Truck Service
 
-- [x] Add dummy Food Truck API on high level.
+- [x] API to GET/POST/PATCH/DELETE Food Truck data into MongoDB (on both stack Node and Python)
+- [x] Connect MongoDB - hosted using Docker Compose.
 
 ### Client (Web)
 
 - [x] Use [Next.js](https://nextjs.org/) framework which uses [React](https://react.dev/) as base library along with [TypeScript](https://www.typescriptlang.org/)
 - [x] Use [Bootstrap`](https://getbootstrap.com/) as base CSS/UI components library along with [React Icons](https://react-icons.github.io/react-icons/)
 - [x] Setup `project scaffolding` like files and directories, etc.
+- [x] Functionality See `./documents` for screen shots.
