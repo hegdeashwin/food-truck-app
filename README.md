@@ -18,6 +18,8 @@ Sets of packages/tools require to run the service
 
 1. Use below command to setup `Mongdb database` and `Mongodb Express` using Docker Compose.
 
+> Ensure to run the command from root folder where `docker-compose.yml` file is located.
+
 ```console
 docker-compose up
 ```
