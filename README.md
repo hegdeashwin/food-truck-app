@@ -59,16 +59,20 @@ uvicorn "app.main:app" --host="0.0.0.0" --port=8000 --reload
 
 ### Client
 
-- [x] (Bug) - In edit option, close Modal once we receive ack from PATCH api response.
-- [x] (Enhancement) - Improve validation, use schema based validation `Yup` along with `Formik` to validate form fields.
-- [x] (Enhancement) - Use more TypeScript features for type check.
-- [x] (Enhancement) - Run client via Docker Compose.
+- [] (Bug) - In edit option, close Modal once we receive ack from PATCH api response.
+- [] (Enhancement) - Improve validation, use schema based validation `Yup` along with `Formik` to validate form fields.
+- [] (Enhancement) - Use more TypeScript features for type check.
+- [] (Enhancement) - Run client via Docker Compose.
+- [] (Enhancement) - Include unit and functional test cases.
 
 ### Server (Node.js/Express)
 
-- [x] (Enhancement) - Improve validation, use schema based validation `Yup` to validate request body & queries.
-- [x] (Enhancement) - Run server_node via Docker Compose.
+- [] (Enhancement) - Improve validation, use schema based validation `Yup` to validate request body & queries.
+- [] (Enhancement) - Run server_node via Docker Compose.
+- [] (Enhancement) - Include unit and functional test cases.
 
 ### Server (Python/FastAPI)
 
-- [x] (Bug) - Open issue with CORS middlware on FastAPI (https://github.com/tiangolo/fastapi/discussions/6278)
+- [] (Bug) - Open issue with CORS middlware on FastAPI (https://github.com/tiangolo/fastapi/discussions/6278)
+- [] (Enhancement) - Include unit and functional test cases.
+
