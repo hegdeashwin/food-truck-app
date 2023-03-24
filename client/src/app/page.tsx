@@ -15,7 +15,7 @@ export default function Home() {
       : null;
   }, []);
 
-  const [filterByCurrentDate, setFilterByCurrentDate] = useState('all')
+  const [filterByCurrentDate, setFilterByCurrentDate] = useState('true')
 
   const onRefreshStart = () => {
     setRefresh(true)

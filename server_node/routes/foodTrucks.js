@@ -61,7 +61,7 @@ router.post('/', async function(req, res) {
   const { foodTruckName, foodTruckAvailableDate } = req.body
   const doc = {
     food_truck_name: foodTruckName,
-    food_truck_available_date: foodTruckAvailableDate
+    food_truck_available_date: new Date(foodTruckAvailableDate)
   }
 
   try {
@@ -93,7 +93,7 @@ router.patch('/', async function(req, res) {
   }
   if (foodTruckAvailableDate || foodTruckAvailableDate !== '') {
     Object.assign(doc, {
-      food_truck_available_date: foodTruckAvailableDate
+      food_truck_available_date: new Date(foodTruckAvailableDate)
     })
   }
   
