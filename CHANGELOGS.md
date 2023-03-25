@@ -15,6 +15,17 @@
 
 ## Changes
 
+**Release 26th March 2023 - v0.0.2**
+
+### General Infra (Node, Python, Web Client)
+
+- [x] Refactor Dockerfile.
+- [x] Refactor Docker Compose file to include Web Client, Node and Python web services.
+
+### Server Food Truck Service
+
+- [x] Bug fix - date format for write and read path.
+
 **Release 21st March 2023 - v0.0.1**
 
 ### General Infra (Node)
