@@ -1,19 +1,34 @@
-
-import { Formik } from 'formik'
+import { Formik } from 'formik';
 import { useState } from 'react';
 
-export default function AddFoodTruck(props: any) {
-  const { onRefresh } = props
-  const [apiResponse, setApiResponse] = useState(null)
+type Errors = {
+  foodTruckName: string;
+  foodTruckAvailableDate: string;
+}
 
-  const initialValues = {
+type AddFoodTruckProps = {
+  onRefresh: Function
+}
+
+export default function AddFoodTruck(props: AddFoodTruckProps) {
+  const { onRefresh } = props
+
+  const defaultApiResponseObj = {
+    content: "",
+    status: 0
+  }
+
+  const defaultApiRequestObj = {
     foodTruckName: '',
     foodTruckAvailableDate: '',
   }
 
-  const validate = (values: any) => {
-    const errors = {};
-    if (!values.foodTruckName) {
+  const [apiResponse, setApiResponse] = useState(defaultApiResponseObj)
+
+  const validate = (values: any): Errors => {
+    const errors: Errors = defaultApiRequestObj;
+
+    if (values && !values.foodTruckName) {
       errors.foodTruckName = 'Please choose a food truck name.';
     }
 
@@ -24,7 +39,7 @@ export default function AddFoodTruck(props: any) {
     return errors;
   }
 
-  const handleSubmit = async (values, setSubmitting, resetForm) => {
+  const handleSubmit = async (values: any, setSubmitting: Function, resetForm: Function) => {
     setSubmitting(false)
 
     const response = await fetch("http://localhost:8005/api/v1/foodtrucks", {
@@ -36,15 +51,17 @@ export default function AddFoodTruck(props: any) {
       body: JSON.stringify(values)
     })
 
+    const decodedContent = await response.json()
+
     setApiResponse({
-      content: await response.json(),
+      content: decodedContent,
       status: response.status
     })
 
     onRefresh()
 
     setTimeout(() => {
-      setApiResponse(null)
+      setApiResponse(defaultApiResponseObj)
       resetForm()
     }, 3000)
     
@@ -52,7 +69,7 @@ export default function AddFoodTruck(props: any) {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={defaultApiRequestObj}
       validate={values => validate(values)}
       onSubmit={(values, { setSubmitting, resetForm }) => handleSubmit(values, setSubmitting, resetForm)} >
       {
@@ -95,7 +112,7 @@ export default function AddFoodTruck(props: any) {
                     
                     <div className="col-md-4">
                       <label htmlFor="foodTruckAvailableDate" className="form-label">Choose food truck available date</label>
-                      <input type="date" min={new Date().toISOString().split('T')[0]} placeholder="dd/mm/yyyy" name="foodTruckAvailableDate" className="form-control mb-2" id="foodTruckAvailableDate" placeholder="eg. Meals on Wheels" onChange={handleChange}
+                      <input type="date" min={new Date().toISOString().split('T')[0]} placeholder="dd/mm/yyyy" name="foodTruckAvailableDate" className="form-control mb-2" id="foodTruckAvailableDate" onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.foodTruckAvailableDate} />
                       {
