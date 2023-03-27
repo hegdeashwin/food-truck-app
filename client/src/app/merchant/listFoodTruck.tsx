@@ -208,7 +208,7 @@ export default function ListFoodTruck(props: ListFoodTruckProps) {
 
                                             <div>
                                                 <label htmlFor="foodTruckAvailableDate" className="form-label">Choose food truck available date</label>
-                                                <input type="date" placeholder="dd/mm/yyyy" min={new Date().toISOString().split('T')[0]} name="foodTruckAvailableDate" className="form-control mb-2" id="foodTruckAvailableDate" placeholder="eg. Meals on Wheels" onChange={handleChange}
+                                                <input type="date" placeholder="dd/mm/yyyy" min={new Date().toISOString().split('T')[0]} name="foodTruckAvailableDate" className="form-control mb-2" id="foodTruckAvailableDate" onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     value={values.foodTruckAvailableDate} />
                                                 {
