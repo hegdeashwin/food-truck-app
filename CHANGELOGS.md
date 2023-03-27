@@ -15,6 +15,16 @@
 
 ## Changes
 
+**Release 27th March 2023 - v0.0.3**
+
+### General Infra (Node, Python, Web Client)
+
+- [x] Refactor Dockerfile.
+- [x] Refactor Docker Compose file to include Web Client, Node and Python web services.
+- [x] Include Prettier and format codebase (Node)
+- [x] Include Health check API in web client.
+- [x] Refactor documentations.
+
 **Release 27th March 2023 - v0.0.2**
 
 ### General Infra (Node, Python, Web Client)
