@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pretty": "prettier --write . '**/*.{json,js,jsx,ts,tsx}'"
   },
   "dependencies": {
     "@types/bootstrap": "^5.2.6",
@@ -23,5 +24,9 @@
     "react-icons": "^4.8.0",
     "typescript": "5.0.2",
     "yup": "^1.0.2"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "2.8.7"
   }
 }

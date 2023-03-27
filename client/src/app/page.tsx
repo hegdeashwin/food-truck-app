@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
 import { useEffect, useState } from 'react'
 import Header from './common/header'
 import Footer from './common/footer'
 import AddFoodTruck from './merchant/addFoodTruck'
-import ListFoodTruck from './merchant/listFoodTruck';
+import ListFoodTruck from './merchant/listFoodTruck'
 
 export default function Home() {
   const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
     typeof document !== undefined
-      ? require("bootstrap/dist/js/bootstrap")
-      : null;
-  }, []);
+      ? require('bootstrap/dist/js/bootstrap')
+      : null
+  }, [])
 
   const [filterByCurrentDate, setFilterByCurrentDate] = useState('true')
 
@@ -26,12 +26,12 @@ export default function Home() {
   }
 
   return (
-    <main className='container py-4'>
+    <main className="container py-4">
       <Header />
 
-      <div className='content'>
+      <div className="content">
         <AddFoodTruck onRefresh={onRefreshStart} />
-        
+
         {/* <div className="alert alert-warning mt-4 py-2">
           <div className="form-check form-switch">
             <input className="form-check-input" type="checkbox" role="switch" id="availableDate" />
@@ -39,7 +39,11 @@ export default function Home() {
           </div>
         </div> */}
 
-        <ListFoodTruck filterByCurrentDate={filterByCurrentDate} onRefreshComplete={onRefreshComplete} refresh={refresh} />
+        <ListFoodTruck
+          filterByCurrentDate={filterByCurrentDate}
+          onRefreshComplete={onRefreshComplete}
+          refresh={refresh}
+        />
       </div>
 
       <Footer />

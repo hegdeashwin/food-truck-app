@@ -27,6 +27,10 @@
 - [x] Bug fix - date format for write and read path.
 - [x] Refactor props types and include constants.
 
+### Client (Web)
+
+- [x] Include Prettier and format codebase
+
 **Release 21st March 2023 - v0.0.1**
 
 ### General Infra (Node)
