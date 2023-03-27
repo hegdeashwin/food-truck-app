@@ -1,17 +1,17 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 /**
  * req - request object
  * res - response object
- * 
+ *
  * Return acknowledge response.
- * Use for health check of the service 
+ * Use for health check of the service
  */
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
   res.send({
-    "acknowledge": true
-  });
-});
+    acknowledge: true,
+  })
+})
 
-module.exports = router;
+module.exports = router
