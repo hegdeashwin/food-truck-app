@@ -1,26 +1,28 @@
 import { Formik } from 'formik';
 import { useState } from 'react';
 
+import constants from '../constants';
+
 type Errors = {
   foodTruckName: string;
   foodTruckAvailableDate: string;
 }
 
 type AddFoodTruckProps = {
-  onRefresh: Function
+  onRefresh: Function;
 }
 
 export default function AddFoodTruck(props: AddFoodTruckProps) {
   const { onRefresh } = props
 
-  const defaultApiResponseObj = {
-    content: "",
-    status: 0
-  }
-
   const defaultApiRequestObj = {
     foodTruckName: '',
     foodTruckAvailableDate: '',
+  }
+
+  const defaultApiResponseObj = {
+    content: "",
+    status: 0
   }
 
   const [apiResponse, setApiResponse] = useState(defaultApiResponseObj)
@@ -42,7 +44,7 @@ export default function AddFoodTruck(props: AddFoodTruckProps) {
   const handleSubmit = async (values: any, setSubmitting: Function, resetForm: Function) => {
     setSubmitting(false)
 
-    const response = await fetch("http://localhost:8005/api/v1/foodtrucks", {
+    const response = await fetch(`${constants.DOWNSTREAM_ENDPOINT}/foodtrucks`, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -51,10 +53,8 @@ export default function AddFoodTruck(props: AddFoodTruckProps) {
       body: JSON.stringify(values)
     })
 
-    const decodedContent = await response.json()
-
     setApiResponse({
-      content: decodedContent,
+      content: await response.json(),
       status: response.status
     })
 
@@ -127,15 +127,10 @@ export default function AddFoodTruck(props: AddFoodTruckProps) {
                     <div className="col-md-2 py-2">
                       <input type="submit" value="Submit" className="btn btn-success mt-4" disabled={isSubmitting} />
                     </div>
-
-                    
                   </form>
                 </div>
               </div>
-
-            
           )
-          
       }
     </Formik>
   )

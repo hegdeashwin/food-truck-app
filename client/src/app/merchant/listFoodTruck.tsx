@@ -1,23 +1,38 @@
-import { useEffect, useState } from 'react'
-import { Formik } from 'formik'
+import { useEffect, useState } from 'react';
+import { Formik } from 'formik';
 
-export default function ListFoodTruck(props: any) {
-    const { refresh, onRefreshComplete } = props
-    const [foodTruckData, setFoodTruckData] = useState(null)
-    const [loader, setLoader] = useState(true)
-    const { filterByCurrentDate } = props
-    const [apiResponse, setApiResponse] = useState(null)
-    const [localRefresh, setLocalRefresh] = useState(false)
-    const [currentEditData, setCurrentEditData] = useState(null)
+import constants from '../constants'
 
-    const initialValues = {
+type ListFoodTruckProps = {
+    onRefreshComplete: Function;
+    refresh: boolean;
+    filterByCurrentDate: string;
+}
+
+export default function ListFoodTruck(props: ListFoodTruckProps) {
+    const { refresh, onRefreshComplete, filterByCurrentDate } = props
+
+    const defaultApiRequestObj = {
         foodTruckName: '',
         foodTruckAvailableDate: '',
     }
 
+    const defaultApiResponseObj = {
+        content: "",
+        status: 0
+    }    
+
+    const [foodTruckData, setFoodTruckData] = useState([])
+    const [loader, setLoader] = useState(true)
+    const [apiResponse, setApiResponse] = useState(defaultApiResponseObj)
+    const [localRefresh, setLocalRefresh] = useState(false)
+    const [currentEditData, setCurrentEditData] = useState(Object.assign({
+        id: '0'
+    }, defaultApiRequestObj))
+
     useEffect(() => {
         setLoader(true)
-        fetch(`http://localhost:8005/api/v1/foodtrucks?filterByCurrentDate=${filterByCurrentDate}`)
+        fetch(`${constants.DOWNSTREAM_ENDPOINT}/foodtrucks?filterByCurrentDate=${filterByCurrentDate}`)
             .then((res) => res.json())
             .then((data) => {
                 setFoodTruckData(data)
@@ -44,7 +59,7 @@ export default function ListFoodTruck(props: any) {
     const onDeleteHandler = async (evt: any, id: string) => {
         evt.preventDefault()
         
-        const response = await fetch("http://localhost:8005/api/v1/foodtrucks", {
+        const response = await fetch(`${constants.DOWNSTREAM_ENDPOINT}/foodtrucks`, {
             method: "DELETE",
             headers: {
                 "Accept": "application/json",
@@ -63,7 +78,7 @@ export default function ListFoodTruck(props: any) {
         setLocalRefresh(true)
     }
 
-    const handleSubmit = async (values, setSubmitting, resetForm) => {
+    const handleSubmit = async (values: any, setSubmitting: Function, resetForm: Function) => {
         
         setSubmitting(false)
         
@@ -71,7 +86,7 @@ export default function ListFoodTruck(props: any) {
             foodTruckId: currentEditData.id
         })
 
-        const response = await fetch("http://localhost:8005/api/v1/foodtrucks", {
+        const response = await fetch(`${constants.DOWNSTREAM_ENDPOINT}/foodtrucks`, {
           method: "PATCH",
           headers: {
             "Accept": "application/json",
@@ -81,14 +96,14 @@ export default function ListFoodTruck(props: any) {
         })
     
         setApiResponse({
-          content: await response.json(),
-          status: response.status
+            content: await response.json(),
+            status: response.status
         })
     
         setLocalRefresh(false)
     
         setTimeout(() => {
-          setApiResponse(null)
+          setApiResponse(defaultApiResponseObj)
           resetForm()
         }, 2000)
     }
@@ -108,7 +123,7 @@ export default function ListFoodTruck(props: any) {
                 {
                     loader ? (
                     <tr>
-                        <td colSpan="4">
+                        <td colSpan={4}>
                         Loading ...
                         </td>
                     </tr>
@@ -117,14 +132,14 @@ export default function ListFoodTruck(props: any) {
                 {
                     foodTruckData && foodTruckData.length === 0 ? (
                     <tr>
-                        <td colSpan="4">
+                        <td colSpan={4}>
                         <div className="alert alert-success" role="alert">
                             <h5 className="alert-heading">Welcome!</h5>
-                            <span>No records found! It looks like we don't have any food truck records added into the system. Here are few next possible steps(s) for you to follow.</span>
+                            <span>No records found! It looks like we don&apos;t have any food truck records added into the system. Here are few next possible steps(s) for you to follow.</span>
                             <hr />
                             <ol>
                             <li>Would you like to add new food truck using above form?</li>
-                            <li>We love to build great products, please feel free to <a href="" target="_blank">share your feedback(s)</a> or <a href="" target="_blank">report bug(s)</a> to our products etc.</li>
+                            <li>We love to build great products, please feel free to <a href="https://github.com/hegdeashwin/food-truck-app/issues" target="_blank">share your feedback(s) or report bug(s)</a> to our products etc.</li>
                             </ol>
                         </div>
                         </td>
@@ -145,7 +160,7 @@ export default function ListFoodTruck(props: any) {
                 }
                 </tbody>
             </table>
-            <div className="modal fade" id="editModal" tabIndex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div className="modal fade" id="editModal" tabIndex={-1} aria-labelledby="editModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">
@@ -154,8 +169,7 @@ export default function ListFoodTruck(props: any) {
                     </div>
                     <div className="modal-body">
                         <Formik
-                            initialValues={initialValues}
-                            // validate={values => validate(values)}
+                            initialValues={defaultApiRequestObj}
                             onSubmit={(values, { setSubmitting, resetForm }) => handleSubmit(values, setSubmitting, resetForm)} >
                             {
                                 ({
@@ -213,7 +227,6 @@ export default function ListFoodTruck(props: any) {
                                         </form>
                                     </>
                                 )
-                                
                             }
                             </Formik>
                         </div>
