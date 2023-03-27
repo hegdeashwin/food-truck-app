@@ -15,7 +15,7 @@
 
 ## Changes
 
-**Release 26th March 2023 - v0.0.2**
+**Release 27th March 2023 - v0.0.2**
 
 ### General Infra (Node, Python, Web Client)
 
@@ -25,6 +25,7 @@
 ### Server Food Truck Service
 
 - [x] Bug fix - date format for write and read path.
+- [x] Refactor props types and include constants.
 
 **Release 21st March 2023 - v0.0.1**
 
