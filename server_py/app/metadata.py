@@ -11,7 +11,7 @@ class Metadata(BaseSettings):
 
     title = "Food Truck API"
     description = "List of APIs for Food Truck functionalities."
-    version = "0.0.1"
+    version = "0.0.2"
     contact = {
         "name": "Ashwin Hegde",
         "url": "https://github.com/hegdeashwin",

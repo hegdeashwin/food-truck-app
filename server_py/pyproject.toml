@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "server_food"
-version = "0.0.1"
+version = "0.0.2"
 description = "Bunch of API built for food truck functionalities."
 authors = ["Ashwin Hegde <ashwin.hegde3@gmail.com>"]
 maintainers = ["Ashwin Hegde <ashwin.hegde3@gmail.com>"]
