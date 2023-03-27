@@ -1,0 +1,19 @@
+# Dockerfile for development
+# Set the base image from the public repositories.
+FROM node:18-alpine
+
+# Sets the environment variable
+ENV NODE_ENV=development
+
+# Set the working directory
+WORKDIR "/app"
+
+# Copy package and install dependencies
+COPY package.json .
+RUN npm install
+
+# Copy remaining codebase
+COPY . .
+
+# Provide defaults for an executing container
+CMD ["npm", "run", "start"]
